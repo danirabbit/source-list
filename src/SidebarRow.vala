@@ -20,6 +20,8 @@
 
 namespace Granite.Widgets {
     public class SidebarRow : Gtk.ListBoxRow {
+        public signal void button_clicked ();
+
         private Gtk.Button button;
         private Gtk.Image button_image;
         private Gtk.Image icon;
@@ -67,6 +69,10 @@ namespace Granite.Widgets {
 
             get_style_context ().add_class ("sidebar-item");
             add (layout);
+
+            button.clicked.connect (() => {
+                button_clicked ();
+            });
         }
 
         public int badge {

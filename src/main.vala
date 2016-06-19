@@ -53,6 +53,7 @@ public class SourceList : Gtk.Application {
         var filesystem = new Granite.Widgets.SidebarRow ("Filesystem", "drive-harddisk");
         filesystem.button_icon_name = "media-eject-symbolic";
         filesystem.badge = 4;
+        filesystem.tooltip_text = "/ - ext3/ext4 (217 GB Free of 243 GB)";
 
         var sidebar = new Granite.Widgets.Sidebar ();
         sidebar.add (personal);
@@ -63,6 +64,10 @@ public class SourceList : Gtk.Application {
         personal.add_child (trash);
         sidebar.add (devices);
         devices.add_child (filesystem);
+
+        filesystem.button_clicked.connect (() => {
+            filesystem.reveal_button = false;
+        });
 
         var filesystem_button = new Gtk.Button.with_label ("Toggle Eject Button");
         filesystem_button.clicked.connect (() => {
