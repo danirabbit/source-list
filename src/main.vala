@@ -42,7 +42,7 @@ public class SourceList : Gtk.Application {
         var personal = new Granite.Widgets.SidebarHeader ("Personal");
 
         var home = new Granite.Widgets.SidebarRow ("Home", "user-home");
-        home.badge = 2;
+        home.badge = 17;
         var recent = new Granite.Widgets.SidebarRow ("Recent", "folder-recent");
         var documents = new Granite.Widgets.SidebarRow ("Documents", "folder-documents");
         var music = new Granite.Widgets.SidebarRow ("Music", "folder-music");

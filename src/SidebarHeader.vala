@@ -19,7 +19,7 @@
 */
 
 namespace Granite.Widgets {
-    public class SidebarHeader : Gtk.ListBoxRow {
+    public class SidebarHeader : Gtk.Grid {
         private Gtk.ListBox children;
         private Gtk.Revealer revealer;
 
@@ -35,8 +35,9 @@ namespace Granite.Widgets {
             header_layout.add (header_label);
             header_layout.add (reveal_image);
 
-            var header = new Gtk.ListBoxRow ();
+            var header = new Gtk.Button ();
             header.get_style_context ().add_class ("sidebar-item");
+            header.get_style_context ().remove_class ("button");
             header.add (header_layout);
 
             children = new Gtk.ListBox ();
@@ -46,14 +47,11 @@ namespace Granite.Widgets {
             revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             revealer.add (children);
 
-            var layout = new Gtk.Grid ();
-            layout.orientation = Gtk.Orientation.VERTICAL;
-            layout.add (header);
-            layout.add (revealer);
+            orientation = Gtk.Orientation.VERTICAL;
+            add (header);
+            add (revealer);
 
-            add (layout);
-
-            activate.connect (() => {
+            header.clicked.connect (() => {
                 if (revealer.reveal_child) {
                     revealer.reveal_child = false;
                     reveal_image.icon_name = "pan-end-symbolic";

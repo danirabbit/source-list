@@ -19,10 +19,11 @@
 */
 
 namespace Granite.Widgets {
-    public class Sidebar : Gtk.ListBox {
+    public class Sidebar : Gtk.Grid {
         public Sidebar () {
+            orientation = Gtk.Orientation.VERTICAL;
             get_style_context ().add_class (Gtk.STYLE_CLASS_SIDEBAR);
-            width_request = 150;
+            width_request = 200;
             vexpand = true;
         }
     }
