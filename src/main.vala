@@ -73,7 +73,7 @@ public class SourceList : Gtk.Application {
             }
         });
 
-        var badge_spin = new Gtk.SpinButton.with_range (0, 25, 5);
+        var badge_spin = new Gtk.SpinButton.with_range (0, 99999, 7);
         badge_spin.bind_property ("value", home, "badge", BindingFlags.DEFAULT);
 
         var layout = new Gtk.Grid ();
