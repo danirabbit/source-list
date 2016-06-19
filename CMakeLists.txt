@@ -39,6 +39,7 @@ ensure_vala_version("0.32" MINIMUM)
 include (ValaPrecompile)
 vala_precompile(VALA_C ${EXEC_NAME}
     src/main.vala
+    src/SourceList.vala
 
 # tell what libraries to use when compiling
 PACKAGES

@@ -23,7 +23,7 @@ public class SourceList : Gtk.Application {
     private string APPNAME = "Source List Demo";
 
     public SourceList () {
-        Object (application_id: "mini-fighter",
+        Object (application_id: "org.danrabbit.sourcelist",
         flags: ApplicationFlags.FLAGS_NONE);
     }
 
