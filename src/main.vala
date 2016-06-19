@@ -42,7 +42,6 @@ public class SourceList : Gtk.Application {
         var personal = new Granite.Widgets.SidebarHeader ("Personal");
 
         var home = new Granite.Widgets.SidebarRow ("Home", "user-home");
-        home.badge = 17;
         var recent = new Granite.Widgets.SidebarRow ("Recent", "folder-recent");
         var documents = new Granite.Widgets.SidebarRow ("Documents", "folder-documents");
         var music = new Granite.Widgets.SidebarRow ("Music", "folder-music");
@@ -74,9 +73,15 @@ public class SourceList : Gtk.Application {
             }
         });
 
+        var badge_spin = new Gtk.SpinButton.with_range (0, 25, 5);
+        badge_spin.bind_property ("value", home, "badge", BindingFlags.DEFAULT);
+
         var layout = new Gtk.Grid ();
+        layout.row_spacing = 12;
+        layout.orientation = Gtk.Orientation.VERTICAL;
         layout.width_request = 650;
         layout.margin = 24;
+        layout.add (badge_spin);
         layout.add (filesystem_button);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);

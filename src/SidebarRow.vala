@@ -61,9 +61,11 @@ namespace Granite.Widgets {
 
         public int badge {
             set {
-                badge_label.label = value.to_string ();
                 if (value != 0) {
+                    badge_label.label = value.to_string ();
                     badge_label.visible = true;
+                } else {
+                    badge_label.visible = false;
                 }
             }
         }
