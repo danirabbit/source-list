@@ -38,6 +38,33 @@ public class SourceList : Gtk.Application {
         window.set_titlebar (header);
         window.set_default_size (1024, 768);
 
+
+        var personal = new Granite.Widgets.SidebarHeader ("Personal");
+        var devices = new Granite.Widgets.SidebarHeader ("Devices");
+
+        var home = new Granite.Widgets.SidebarRow ("Home", "user-home");
+        home.badge = 15;
+        var recent = new Granite.Widgets.SidebarRow ("Recent", "folder-recent");
+        var documents = new Granite.Widgets.SidebarRow ("Documents", "folder-documents");
+        documents.icon_name = "user-trash-full";
+        var music = new Granite.Widgets.SidebarRow ("Music", "folder-music");
+
+        var sidebar = new Granite.Widgets.Sidebar ();
+        sidebar.add (personal);
+        sidebar.add (home);
+        sidebar.add (recent);
+        sidebar.add (documents);
+        sidebar.add (music);
+        sidebar.add (devices);
+
+        var stack = new Gtk.Stack ();
+        stack.width_request = 650;
+
+        var layout = new Gtk.Grid ();
+        layout.add (sidebar);
+        layout.add (stack);
+
+        window.add (layout);
         window.show_all ();
     }
 
