@@ -39,7 +39,8 @@ ensure_vala_version("0.32" MINIMUM)
 include (ValaPrecompile)
 vala_precompile(VALA_C ${EXEC_NAME}
     src/main.vala
-    src/SourceList.vala
+    src/Sidebar.vala
+    src/SidebarHeader.vala
     src/SidebarRow.vala
 
 # tell what libraries to use when compiling
