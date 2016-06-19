@@ -40,15 +40,20 @@ public class SourceList : Gtk.Application {
 
 
         var personal = new Granite.Widgets.SidebarHeader ("Personal");
-        var devices = new Granite.Widgets.SidebarHeader ("Devices");
 
         var home = new Granite.Widgets.SidebarRow ("Home", "user-home");
-        home.badge = 15;
+        home.badge = 2;
         var recent = new Granite.Widgets.SidebarRow ("Recent", "folder-recent");
         var documents = new Granite.Widgets.SidebarRow ("Documents", "folder-documents");
         var music = new Granite.Widgets.SidebarRow ("Music", "folder-music");
         var trash = new Granite.Widgets.SidebarRow ("Trash", "user-trash-empty");
         trash.icon_name = "user-trash-full";
+
+        var devices = new Granite.Widgets.SidebarHeader ("Devices");
+
+        var filesystem = new Granite.Widgets.SidebarRow ("Filesystem", "drive-harddisk");
+        filesystem.button_icon_name = "media-eject-symbolic";
+        filesystem.badge = 4;
 
         var sidebar = new Granite.Widgets.Sidebar ();
         sidebar.add (personal);
@@ -56,17 +61,26 @@ public class SourceList : Gtk.Application {
         sidebar.add (recent);
         sidebar.add (documents);
         sidebar.add (music);
-        sidebar.add (devices);
         sidebar.add (trash);
+        sidebar.add (devices);
+        sidebar.add (filesystem);
 
-        var stack = new Gtk.Stack ();
-        stack.width_request = 650;
+
+        var filesystem_button = new Gtk.Button.with_label ("Reveal Eject Button");
+        filesystem_button.clicked.connect (() => {
+            filesystem.reveal_button = true;
+        });
 
         var layout = new Gtk.Grid ();
-        layout.add (sidebar);
-        layout.add (stack);
+        layout.width_request = 650;
+        layout.margin = 24;
+        layout.add (filesystem_button);
 
-        window.add (layout);
+        var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        paned.add (sidebar);
+        paned.add (layout);
+
+        window.add (paned);
         window.show_all ();
     }
 

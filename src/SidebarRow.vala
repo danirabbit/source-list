@@ -20,26 +20,40 @@
 
 namespace Granite.Widgets {
     public class SidebarRow : Gtk.ListBoxRow {
-        private Gtk.Label item_badge;
-        private Gtk.Image item_icon;
+        private Gtk.Image button_image;
+        private Gtk.Image icon;
+        private Gtk.Label badge_label;
+        private Gtk.Revealer revealer;
 
         public SidebarRow (string label, string icon_name) {
-            item_icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.BUTTON);
+            icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.BUTTON);
 
-            var item_label = new Gtk.Label (label);
-            item_label.halign = Gtk.Align.START;
-            item_label.hexpand = true;
+            var row_label = new Gtk.Label (label);
+            row_label.halign = Gtk.Align.START;
+            row_label.hexpand = true;
 
-            item_badge = new Gtk.Label ("");
-            item_badge.get_style_context ().add_class ("badge");
-            item_badge.valign = Gtk.Align.CENTER;
-            item_badge.no_show_all = true;
+            badge_label = new Gtk.Label ("");
+            badge_label.get_style_context ().add_class ("badge");
+            badge_label.valign = Gtk.Align.CENTER;
+            badge_label.no_show_all = true;
+
+            button_image = new Gtk.Image ();
+            button_image.icon_size = Gtk.IconSize.BUTTON;
+
+            var button = new Gtk.Button ();
+            button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            button.image = button_image;
+
+            revealer = new Gtk.Revealer ();
+            revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            revealer.add (button);
 
             var layout = new Gtk.Grid ();
             layout.margin_start = 6;
-            layout.add (item_icon);
-            layout.add (item_label);
-            layout.add (item_badge);
+            layout.add (icon);
+            layout.add (row_label);
+            layout.add (revealer);
+            layout.add (badge_label);
 
             get_style_context ().add_class ("sidebar-item");
             add (layout);
@@ -47,16 +61,28 @@ namespace Granite.Widgets {
 
         public int badge {
             set {
-                item_badge.label = value.to_string ();
+                badge_label.label = value.to_string ();
                 if (value != 0) {
-                    item_badge.visible = true;
+                    badge_label.visible = true;
                 }
             }
         }
 
         public string icon_name {
             set {
-                item_icon.icon_name = value;
+                icon.icon_name = value;
+            }
+        }
+
+        public string button_icon_name {
+            set {
+                button_image.icon_name = value;
+            }
+        }
+
+        public bool reveal_button {
+            set {
+                revealer.reveal_child = value;
             }
         }
     }
