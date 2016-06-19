@@ -46,8 +46,9 @@ public class SourceList : Gtk.Application {
         home.badge = 15;
         var recent = new Granite.Widgets.SidebarRow ("Recent", "folder-recent");
         var documents = new Granite.Widgets.SidebarRow ("Documents", "folder-documents");
-        documents.icon_name = "user-trash-full";
         var music = new Granite.Widgets.SidebarRow ("Music", "folder-music");
+        var trash = new Granite.Widgets.SidebarRow ("Trash", "user-trash-empty");
+        trash.icon_name = "user-trash-full";
 
         var sidebar = new Granite.Widgets.Sidebar ();
         sidebar.add (personal);
@@ -56,6 +57,7 @@ public class SourceList : Gtk.Application {
         sidebar.add (documents);
         sidebar.add (music);
         sidebar.add (devices);
+        sidebar.add (trash);
 
         var stack = new Gtk.Stack ();
         stack.width_request = 650;

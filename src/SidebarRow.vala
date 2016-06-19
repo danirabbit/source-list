@@ -46,9 +46,6 @@ namespace Granite.Widgets {
         }
 
         public int badge {
-            get {
-                return item_badge.label.to_int ();
-            }
             set {
                 item_badge.label = value.to_string ();
                 if (value != 0) {
