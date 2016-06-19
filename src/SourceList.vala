@@ -28,14 +28,52 @@ namespace Granite.Widgets {
     }
 
     public class SidebarHeader : Gtk.ListBoxRow {
+        private Gtk.ListBox children;
+        private Gtk.Revealer revealer;
+
         public SidebarHeader (string label) {
             var header_label = new Gtk.Label (label);
             header_label.get_style_context ().add_class ("h4");
             header_label.halign = Gtk.Align.START;
+            header_label.hexpand = true;
 
-            get_style_context ().add_class ("sidebar-item");
-            selectable = false;
-            add (header_label);
+            var reveal_image = new Gtk.Image.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
+
+            var header_layout = new Gtk.Grid ();
+            header_layout.add (header_label);
+            header_layout.add (reveal_image);
+
+            var header = new Gtk.ListBoxRow ();
+            header.get_style_context ().add_class ("sidebar-item");
+            header.add (header_layout);
+
+            children = new Gtk.ListBox ();
+
+            revealer = new Gtk.Revealer ();
+            revealer.reveal_child = true;
+            revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+            revealer.add (children);
+
+            var layout = new Gtk.Grid ();
+            layout.orientation = Gtk.Orientation.VERTICAL;
+            layout.add (header);
+            layout.add (revealer);
+
+            add (layout);
+
+            activate.connect (() => {
+                if (revealer.reveal_child) {
+                    revealer.reveal_child = false;
+                    reveal_image.icon_name = "pan-end-symbolic";
+                } else {
+                    revealer.reveal_child = true;
+                    reveal_image.icon_name = "pan-down-symbolic";
+                }
+            });
+        }
+
+        public void add_child (SidebarRow child) {
+            children.add (child);
         }
     }
 }

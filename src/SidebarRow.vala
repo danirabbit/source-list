@@ -23,7 +23,7 @@ namespace Granite.Widgets {
         private Gtk.Image button_image;
         private Gtk.Image icon;
         private Gtk.Label badge_label;
-        private Gtk.Revealer revealer;
+        private Gtk.Revealer button_revealer;
 
         public SidebarRow (string label, string icon_name) {
             icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.BUTTON);
@@ -44,15 +44,15 @@ namespace Granite.Widgets {
             button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             button.image = button_image;
 
-            revealer = new Gtk.Revealer ();
-            revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-            revealer.add (button);
+            button_revealer = new Gtk.Revealer ();
+            button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            button_revealer.add (button);
 
             var layout = new Gtk.Grid ();
             layout.margin_start = 6;
             layout.add (icon);
             layout.add (row_label);
-            layout.add (revealer);
+            layout.add (button_revealer);
             layout.add (badge_label);
 
             get_style_context ().add_class ("sidebar-item");
@@ -82,7 +82,7 @@ namespace Granite.Widgets {
 
         public bool reveal_button {
             set {
-                revealer.reveal_child = value;
+                button_revealer.reveal_child = value;
             }
         }
     }

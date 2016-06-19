@@ -57,14 +57,13 @@ public class SourceList : Gtk.Application {
 
         var sidebar = new Granite.Widgets.Sidebar ();
         sidebar.add (personal);
-        sidebar.add (home);
-        sidebar.add (recent);
-        sidebar.add (documents);
-        sidebar.add (music);
-        sidebar.add (trash);
+        personal.add_child (home);
+        personal.add_child (recent);
+        personal.add_child (documents);
+        personal.add_child (music);
+        personal.add_child (trash);
         sidebar.add (devices);
-        sidebar.add (filesystem);
-
+        devices.add_child (filesystem);
 
         var filesystem_button = new Gtk.Button.with_label ("Reveal Eject Button");
         filesystem_button.clicked.connect (() => {
