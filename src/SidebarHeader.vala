@@ -32,6 +32,7 @@ namespace Granite.Widgets {
             var reveal_image = new Gtk.Image.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
 
             var header_revealer = new Gtk.Revealer ();
+            header_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
             header_revealer.add (reveal_image);
 
             var header_layout = new Gtk.Grid ();
