@@ -65,9 +65,13 @@ public class SourceList : Gtk.Application {
         sidebar.add (devices);
         devices.add_child (filesystem);
 
-        var filesystem_button = new Gtk.Button.with_label ("Reveal Eject Button");
+        var filesystem_button = new Gtk.Button.with_label ("Toggle Eject Button");
         filesystem_button.clicked.connect (() => {
-            filesystem.reveal_button = true;
+            if (filesystem.reveal_button) {
+                filesystem.reveal_button = false;
+            } else {
+                filesystem.reveal_button = true;
+            }
         });
 
         var layout = new Gtk.Grid ();

@@ -81,6 +81,9 @@ namespace Granite.Widgets {
         }
 
         public bool reveal_button {
+            get {
+                return button_revealer.reveal_child;
+            }
             set {
                 button_revealer.reveal_child = value;
             }
