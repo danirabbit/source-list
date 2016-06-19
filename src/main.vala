@@ -66,7 +66,11 @@ public class SourceList : Gtk.Application {
         devices.add_child (filesystem);
 
         filesystem.button_clicked.connect (() => {
-            filesystem.reveal_button = false;
+            filesystem.busy = true;
+            Timeout.add (2000, () => {
+                filesystem.busy = false;
+                return false;
+            });
         });
 
         var filesystem_button = new Gtk.Button.with_label ("Toggle Eject Button");
@@ -78,12 +82,12 @@ public class SourceList : Gtk.Application {
             }
         });
 
-        var filesystem_busy = new Gtk.Button.with_label ("Toggle Busy");
-        filesystem_busy.clicked.connect (() => {
-            if (filesystem.busy) {
-                filesystem.busy = false;
+        var music_busy = new Gtk.Button.with_label ("Toggle Busy");
+        music_busy.clicked.connect (() => {
+            if (music.busy) {
+                music.busy = false;
             } else {
-                filesystem.busy = true;
+                music.busy = true;
             }
         });
 
@@ -96,8 +100,8 @@ public class SourceList : Gtk.Application {
         layout.width_request = 650;
         layout.margin = 24;
         layout.add (badge_spin);
+        layout.add (music_busy);
         layout.add (filesystem_button);
-        layout.add (filesystem_busy);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.add (sidebar);
