@@ -20,10 +20,13 @@
 
 namespace Granite.Widgets {
     public class SidebarRow : Gtk.ListBoxRow {
+        private Gtk.Button button;
         private Gtk.Image button_image;
         private Gtk.Image icon;
         private Gtk.Label badge_label;
         private Gtk.Revealer button_revealer;
+        private Gtk.Spinner spinner;
+        private Gtk.Stack button_stack;
 
         public SidebarRow (string label, string icon_name) {
             icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.BUTTON);
@@ -40,13 +43,20 @@ namespace Granite.Widgets {
             button_image = new Gtk.Image ();
             button_image.icon_size = Gtk.IconSize.BUTTON;
 
-            var button = new Gtk.Button ();
+            button = new Gtk.Button ();
             button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             button.image = button_image;
 
+            spinner = new Gtk.Spinner ();
+
+            button_stack = new Gtk.Stack ();
+            button_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+            button_stack.add (button);
+            button_stack.add (spinner);
+
             button_revealer = new Gtk.Revealer ();
             button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-            button_revealer.add (button);
+            button_revealer.add (button_stack);
 
             var layout = new Gtk.Grid ();
             layout.margin_start = 6;
@@ -74,9 +84,19 @@ namespace Granite.Widgets {
             }
         }
 
-        public string icon_name {
+        public bool busy {
+            get {
+                if (button_stack.visible_child == spinner) {
+                    return spinner.active;
+                }
+                return false;
+            }
             set {
-                icon.icon_name = value;
+                spinner.active = value;
+                if (value) {
+                    button_stack.visible_child = spinner;
+                    button_revealer.reveal_child = true;
+                }
             }
         }
 
@@ -86,11 +106,24 @@ namespace Granite.Widgets {
             }
         }
 
+        public string icon_name {
+            set {
+                icon.icon_name = value;
+            }
+        }
+
+
         public bool reveal_button {
             get {
-                return button_revealer.reveal_child;
+                if (button_stack.visible_child == button) {
+                    return button_revealer.reveal_child;
+                }
+                return false;
             }
             set {
+                if (value) {
+                    button_stack.visible_child = button;
+                }
                 button_revealer.reveal_child = value;
             }
         }

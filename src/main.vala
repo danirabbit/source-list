@@ -73,6 +73,15 @@ public class SourceList : Gtk.Application {
             }
         });
 
+        var filesystem_busy = new Gtk.Button.with_label ("Toggle Busy");
+        filesystem_busy.clicked.connect (() => {
+            if (filesystem.busy) {
+                filesystem.busy = false;
+            } else {
+                filesystem.busy = true;
+            }
+        });
+
         var badge_spin = new Gtk.SpinButton.with_range (0, 99999, 7);
         badge_spin.bind_property ("value", home, "badge", BindingFlags.DEFAULT);
 
@@ -83,6 +92,7 @@ public class SourceList : Gtk.Application {
         layout.margin = 24;
         layout.add (badge_spin);
         layout.add (filesystem_button);
+        layout.add (filesystem_busy);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.add (sidebar);
