@@ -31,9 +31,12 @@ namespace Granite.Widgets {
 
             var reveal_image = new Gtk.Image.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
 
+            var header_revealer = new Gtk.Revealer ();
+            header_revealer.add (reveal_image);
+
             var header_layout = new Gtk.Grid ();
             header_layout.add (header_label);
-            header_layout.add (reveal_image);
+            header_layout.add (header_revealer);
 
             var header = new Gtk.Button ();
             header.get_style_context ().add_class ("sidebar-item");
@@ -59,6 +62,16 @@ namespace Granite.Widgets {
                     revealer.reveal_child = true;
                     reveal_image.icon_name = "pan-down-symbolic";
                 }
+            });
+
+            header.enter_notify_event.connect (() => {
+                header_revealer.reveal_child = true;
+                return false;
+            });
+
+            header.leave_notify_event.connect (() => {
+                header_revealer.reveal_child = false;
+                return false;
             });
         }
 
