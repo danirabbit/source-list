@@ -42,6 +42,7 @@ namespace Granite.Widgets {
 
             badge_label = new Gtk.Label ("");
             badge_label.get_style_context ().add_class ("badge");
+            badge_label.margin_end = 2;
             badge_label.valign = Gtk.Align.CENTER;
 
             badge_revealer = new Gtk.Revealer ();
@@ -74,7 +75,6 @@ namespace Granite.Widgets {
             layout.add (button_revealer);
             layout.add (badge_revealer);
 
-            get_style_context ().add_class ("sidebar-item");
             add (layout);
 
             button.clicked.connect (() => {

@@ -35,7 +35,7 @@ namespace Granite.Widgets {
             header_layout.add (header_revealer);
 
             var header = new Gtk.Button ();
-            header.get_style_context ().add_class ("sidebar-item");
+            header.get_style_context ().add_class ("list-row");
             header.get_style_context ().remove_class ("button");
             header.add (header_layout);
 
