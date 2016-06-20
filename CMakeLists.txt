@@ -41,6 +41,7 @@ vala_precompile(VALA_C ${EXEC_NAME}
     src/main.vala
     src/Sidebar.vala
     src/SidebarHeader.vala
+    src/SidebarExpandableRow.vala
     src/SidebarRow.vala
 
 # tell what libraries to use when compiling

@@ -19,21 +19,16 @@
 */
 
 namespace Granite.Widgets {
-    public class SidebarHeader : Gtk.Grid {
-        private Gtk.ListBox children;
-        private Gtk.Revealer revealer;
-
+    public class SidebarHeader : SidebarExpandableRow {
         public SidebarHeader (string label) {
             var header_label = new Gtk.Label (label);
             header_label.get_style_context ().add_class ("h4");
             header_label.halign = Gtk.Align.START;
             header_label.hexpand = true;
 
-            var reveal_image = new Gtk.Image.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
-
             var header_revealer = new Gtk.Revealer ();
             header_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-            header_revealer.add (reveal_image);
+            header_revealer.add (disclosure_triangle);
 
             var header_layout = new Gtk.Grid ();
             header_layout.add (header_label);
@@ -44,25 +39,11 @@ namespace Granite.Widgets {
             header.get_style_context ().remove_class ("button");
             header.add (header_layout);
 
-            children = new Gtk.ListBox ();
-
-            revealer = new Gtk.Revealer ();
-            revealer.reveal_child = true;
-            revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-            revealer.add (children);
-
-            orientation = Gtk.Orientation.VERTICAL;
             add (header);
             add (revealer);
 
             header.clicked.connect (() => {
-                if (revealer.reveal_child) {
-                    revealer.reveal_child = false;
-                    reveal_image.icon_name = "pan-end-symbolic";
-                } else {
-                    revealer.reveal_child = true;
-                    reveal_image.icon_name = "pan-down-symbolic";
-                }
+                toggle_reveal_children ();
             });
 
             header.enter_notify_event.connect (() => {
@@ -74,10 +55,6 @@ namespace Granite.Widgets {
                 header_revealer.reveal_child = false;
                 return false;
             });
-        }
-
-        public void add_child (SidebarRow child) {
-            children.add (child);
         }
     }
 }
