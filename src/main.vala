@@ -74,6 +74,8 @@ public class SourceList : Gtk.Application {
 
         var music_busy = new Gtk.Button.with_label ("Toggle Busy");
 
+        var add_folder = new Gtk.Button.with_label ("Add Folder");
+
         var badge_spin = new Gtk.SpinButton.with_range (0, 99999, 7);
         badge_spin.bind_property ("value", home, "badge", BindingFlags.DEFAULT);
 
@@ -88,6 +90,7 @@ public class SourceList : Gtk.Application {
         layout.margin = 24;
         layout.add (badge_spin);
         layout.add (music_busy);
+        layout.add (add_folder);
         layout.add (filesystem_button);
         layout.add (usb_entry);
 
@@ -120,6 +123,11 @@ public class SourceList : Gtk.Application {
             } else {
                 music.busy = true;
             }
+        });
+
+        add_folder.clicked.connect (() => {
+            var folder = new Granite.Widgets.SidebarRow ("Bookmark", "folder");
+            personal.add_child (folder);
         });
     }
 

@@ -55,6 +55,8 @@ namespace Granite.Widgets {
 
         public void add_child (SidebarRow child) {
             children.add (child);
+            show_all ();
+            child.reveal = true;
         }
 
         public void remove_child (SidebarRow child) {

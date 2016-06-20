@@ -78,7 +78,6 @@ namespace Granite.Widgets {
 
             revealer = new Gtk.Revealer ();
             revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-            revealer.reveal_child = true;
             revealer.add (layout);
 
             add (revealer);
