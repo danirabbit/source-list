@@ -36,7 +36,8 @@ namespace Granite.Widgets {
             icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.BUTTON);
 
             row_label = new Gtk.Label (label);
-            row_label.halign = Gtk.Align.START;
+            row_label.ellipsize = Pango.EllipsizeMode.END;
+            row_label.xalign = 0;
             row_label.hexpand = true;
 
             badge_label = new Gtk.Label ("");
