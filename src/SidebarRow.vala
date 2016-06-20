@@ -42,7 +42,7 @@ namespace Granite.Widgets {
 
             badge_label = new Gtk.Label ("");
             badge_label.get_style_context ().add_class ("badge");
-            badge_label.margin_end = 2;
+            badge_label.margin_end = 3;
             badge_label.valign = Gtk.Align.CENTER;
 
             badge_revealer = new Gtk.Revealer ();
