@@ -27,6 +27,7 @@ namespace Granite.Widgets {
         private Gtk.Image icon;
         private Gtk.Label badge_label;
         private Gtk.Label row_label;
+        private Gtk.Revealer badge_revealer;
         private Gtk.Revealer button_revealer;
         private Gtk.Spinner spinner;
         private Gtk.Stack button_stack;
@@ -41,7 +42,10 @@ namespace Granite.Widgets {
             badge_label = new Gtk.Label ("");
             badge_label.get_style_context ().add_class ("badge");
             badge_label.valign = Gtk.Align.CENTER;
-            badge_label.no_show_all = true;
+
+            badge_revealer = new Gtk.Revealer ();
+            badge_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            badge_revealer.add (badge_label);
 
             button_image = new Gtk.Image ();
             button_image.icon_size = Gtk.IconSize.BUTTON;
@@ -66,7 +70,7 @@ namespace Granite.Widgets {
             layout.add (icon);
             layout.add (row_label);
             layout.add (button_revealer);
-            layout.add (badge_label);
+            layout.add (badge_revealer);
 
             get_style_context ().add_class ("sidebar-item");
             add (layout);
@@ -90,9 +94,9 @@ namespace Granite.Widgets {
                     } else {
                         badge_label.label = value.to_string ();
                     }
-                    badge_label.visible = true;
+                    badge_revealer.reveal_child = true;
                 } else {
-                    badge_label.visible = false;
+                    badge_revealer.reveal_child = false;
                 }
             }
         }

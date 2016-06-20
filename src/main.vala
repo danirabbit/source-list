@@ -76,6 +76,7 @@ public class SourceList : Gtk.Application {
         badge_spin.bind_property ("value", home, "badge", BindingFlags.DEFAULT);
 
         var usb_entry = new Gtk.Entry ();
+        usb_entry.text = "USB Disk";
         usb_entry.bind_property ("text", usb_disk, "label", BindingFlags.DEFAULT);
 
         var layout = new Gtk.Grid ();
