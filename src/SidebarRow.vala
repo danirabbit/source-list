@@ -46,6 +46,7 @@ namespace Granite.Widgets {
 
             badge_revealer = new Gtk.Revealer ();
             badge_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            badge_revealer.no_show_all = true;
             badge_revealer.add (badge_label);
 
             button_image = new Gtk.Image ();
@@ -95,9 +96,15 @@ namespace Granite.Widgets {
                     } else {
                         badge_label.label = value.to_string ();
                     }
+                    badge_revealer.no_show_all = false;
+                    badge_revealer.show_all ();
                     badge_revealer.reveal_child = true;
                 } else {
                     badge_revealer.reveal_child = false;
+                    Timeout.add (badge_revealer.transition_duration, () => {
+                        badge_revealer.visible = false;
+                        return false;
+                    });
                 }
             }
         }
@@ -133,7 +140,7 @@ namespace Granite.Widgets {
             }
         }
 
-        public bool reveal_button {
+        public bool reveal_action {
             get {
                 if (button_stack.visible_child == button) {
                     return button_revealer.reveal_child;

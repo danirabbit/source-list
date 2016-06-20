@@ -56,6 +56,8 @@ public class SourceList : Gtk.Application {
         filesystem.tooltip_text = "/ - ext3/ext4 (217 GB Free of 243 GB)";
 
         var usb_disk = new Granite.Widgets.SidebarRow ("USB Disk", "drive-removable-media");
+        usb_disk.action_icon_name = "media-eject-symbolic";
+        usb_disk.reveal_action = true;
 
         var sidebar = new Granite.Widgets.Sidebar ();
         sidebar.add (personal);
@@ -96,19 +98,19 @@ public class SourceList : Gtk.Application {
         window.add (paned);
         window.show_all ();
 
-        filesystem.action_clicked.connect (() => {
-            filesystem.busy = true;
+        usb_disk.action_clicked.connect (() => {
+            usb_disk.busy = true;
             Timeout.add (2000, () => {
-                filesystem.busy = false;
+                devices.remove_child (usb_disk);
                 return false;
             });
         });
 
         filesystem_button.clicked.connect (() => {
-            if (filesystem.reveal_button) {
-                filesystem.reveal_button = false;
+            if (filesystem.reveal_action) {
+                filesystem.reveal_action = false;
             } else {
-                filesystem.reveal_button = true;
+                filesystem.reveal_action = true;
             }
         });
 
