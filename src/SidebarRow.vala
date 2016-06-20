@@ -20,12 +20,13 @@
 
 namespace Granite.Widgets {
     public class SidebarRow : Gtk.ListBoxRow {
-        public signal void button_clicked ();
+        public signal void action_clicked ();
 
         private Gtk.Button button;
         private Gtk.Image button_image;
         private Gtk.Image icon;
         private Gtk.Label badge_label;
+        private Gtk.Label row_label;
         private Gtk.Revealer button_revealer;
         private Gtk.Spinner spinner;
         private Gtk.Stack button_stack;
@@ -33,7 +34,7 @@ namespace Granite.Widgets {
         public SidebarRow (string label, string icon_name) {
             icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.BUTTON);
 
-            var row_label = new Gtk.Label (label);
+            row_label = new Gtk.Label (label);
             row_label.halign = Gtk.Align.START;
             row_label.hexpand = true;
 
@@ -71,8 +72,14 @@ namespace Granite.Widgets {
             add (layout);
 
             button.clicked.connect (() => {
-                button_clicked ();
+                action_clicked ();
             });
+        }
+
+        public string action_icon_name {
+            set {
+                button_image.icon_name = value;
+            }
         }
 
         public int badge {
@@ -106,18 +113,20 @@ namespace Granite.Widgets {
             }
         }
 
-        public string button_icon_name {
-            set {
-                button_image.icon_name = value;
-            }
-        }
-
         public string icon_name {
             set {
                 icon.icon_name = value;
             }
         }
 
+        public string label {
+            get {
+                return row_label.label;
+            }
+            set {
+                row_label.label = value;
+            }
+        }
 
         public bool reveal_button {
             get {

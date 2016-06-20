@@ -51,9 +51,11 @@ public class SourceList : Gtk.Application {
         var devices = new Granite.Widgets.SidebarHeader ("Devices");
 
         var filesystem = new Granite.Widgets.SidebarRow ("Filesystem", "drive-harddisk");
-        filesystem.button_icon_name = "media-eject-symbolic";
+        filesystem.action_icon_name = "media-eject-symbolic";
         filesystem.badge = 4;
         filesystem.tooltip_text = "/ - ext3/ext4 (217 GB Free of 243 GB)";
+
+        var usb_disk = new Granite.Widgets.SidebarRow ("USB Disk", "drive-removable-media");
 
         var sidebar = new Granite.Widgets.Sidebar ();
         sidebar.add (personal);
@@ -64,35 +66,17 @@ public class SourceList : Gtk.Application {
         personal.add_child (trash);
         sidebar.add (devices);
         devices.add_child (filesystem);
-
-        filesystem.button_clicked.connect (() => {
-            filesystem.busy = true;
-            Timeout.add (2000, () => {
-                filesystem.busy = false;
-                return false;
-            });
-        });
+        devices.add_child (usb_disk);
 
         var filesystem_button = new Gtk.Button.with_label ("Toggle Eject Button");
-        filesystem_button.clicked.connect (() => {
-            if (filesystem.reveal_button) {
-                filesystem.reveal_button = false;
-            } else {
-                filesystem.reveal_button = true;
-            }
-        });
 
         var music_busy = new Gtk.Button.with_label ("Toggle Busy");
-        music_busy.clicked.connect (() => {
-            if (music.busy) {
-                music.busy = false;
-            } else {
-                music.busy = true;
-            }
-        });
 
         var badge_spin = new Gtk.SpinButton.with_range (0, 99999, 7);
         badge_spin.bind_property ("value", home, "badge", BindingFlags.DEFAULT);
+
+        var usb_entry = new Gtk.Entry ();
+        usb_entry.bind_property ("text", usb_disk, "label", BindingFlags.DEFAULT);
 
         var layout = new Gtk.Grid ();
         layout.row_spacing = 12;
@@ -102,6 +86,7 @@ public class SourceList : Gtk.Application {
         layout.add (badge_spin);
         layout.add (music_busy);
         layout.add (filesystem_button);
+        layout.add (usb_entry);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.add (sidebar);
@@ -109,6 +94,30 @@ public class SourceList : Gtk.Application {
 
         window.add (paned);
         window.show_all ();
+
+        filesystem.action_clicked.connect (() => {
+            filesystem.busy = true;
+            Timeout.add (2000, () => {
+                filesystem.busy = false;
+                return false;
+            });
+        });
+
+        filesystem_button.clicked.connect (() => {
+            if (filesystem.reveal_button) {
+                filesystem.reveal_button = false;
+            } else {
+                filesystem.reveal_button = true;
+            }
+        });
+
+        music_busy.clicked.connect (() => {
+            if (music.busy) {
+                music.busy = false;
+            } else {
+                music.busy = true;
+            }
+        });
     }
 
     public static int main (string[] args) {
