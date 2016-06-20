@@ -58,7 +58,11 @@ namespace Granite.Widgets {
         }
 
         public void remove_child (SidebarRow child) {
+            child.reveal = false;
+            Timeout.add (300, () => {
             children.remove (child);
+                return false;
+            });
         }
 
     }

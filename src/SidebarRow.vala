@@ -29,6 +29,7 @@ namespace Granite.Widgets {
         private Gtk.Label row_label;
         private Gtk.Revealer badge_revealer;
         private Gtk.Revealer button_revealer;
+        private Gtk.Revealer revealer;
         private Gtk.Spinner spinner;
         private Gtk.Stack button_stack;
 
@@ -75,7 +76,12 @@ namespace Granite.Widgets {
             layout.add (button_revealer);
             layout.add (badge_revealer);
 
-            add (layout);
+            revealer = new Gtk.Revealer ();
+            revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+            revealer.reveal_child = true;
+            revealer.add (layout);
+
+            add (revealer);
 
             button.clicked.connect (() => {
                 action_clicked ();
@@ -137,6 +143,12 @@ namespace Granite.Widgets {
             }
             set {
                 row_label.label = value;
+            }
+        }
+
+        public bool reveal {
+            set {
+                revealer.reveal_child = value;
             }
         }
 
