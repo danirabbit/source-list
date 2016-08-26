@@ -38,6 +38,7 @@ ensure_vala_version("0.32" MINIMUM)
 # files we want to compile
 include (ValaPrecompile)
 vala_precompile(VALA_C ${EXEC_NAME}
+    src/IconView.vala
     src/main.vala
     src/Sidebar.vala
     src/SidebarHeader.vala

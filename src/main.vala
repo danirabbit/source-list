@@ -83,6 +83,8 @@ public class SourceList : Gtk.Application {
         usb_entry.text = "USB Disk";
         usb_entry.bind_property ("text", usb_disk, "label", BindingFlags.DEFAULT);
 
+        var iconview = new IconView ();
+
         var layout = new Gtk.Grid ();
         layout.row_spacing = 12;
         layout.orientation = Gtk.Orientation.VERTICAL;
@@ -93,6 +95,7 @@ public class SourceList : Gtk.Application {
         layout.add (add_folder);
         layout.add (filesystem_button);
         layout.add (usb_entry);
+        layout.add (iconview);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.add (sidebar);
