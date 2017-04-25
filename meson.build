@@ -1,9 +1,11 @@
-project('source-list', ['vala', 'c'],
+project('com.github.danrabbit.source-list', ['vala', 'c'],
     version : '0.1'
 )
 
+app_id = 'com.github.danrabbit.source-list'
+
 executable(
-    'source-list',
+    app_id,
     'src/main.vala',
     'src/Sidebar.vala',
     'src/SidebarHeader.vala',
@@ -15,4 +17,9 @@ executable(
         dependency('gtk+-3.0')
     ],
     install : true
+)
+
+install_data(
+    'data/com.github.danrabbit.source-list.desktop',
+    install_dir : 'share/applications'
 )

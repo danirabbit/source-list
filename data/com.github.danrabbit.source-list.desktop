@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Source List Test
+Exec=com.github.danrabbit.source-list
+Icon=application-default-icon
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;System;PackageManager;
