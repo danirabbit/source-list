@@ -2,10 +2,8 @@ project('com.github.danrabbit.source-list', ['vala', 'c'],
     version : '0.1'
 )
 
-app_id = 'com.github.danrabbit.source-list'
-
 executable(
-    app_id,
+    'com.github.danrabbit.source-list',
     'src/main.vala',
     'src/Sidebar.vala',
     'src/SidebarHeader.vala',
