@@ -2,10 +2,6 @@ project('source-list', ['vala', 'c'],
     version : '0.1'
 )
 
-glib = dependency('glib-2.0')
-gobject = dependency('gobject-2.0')
-gtk = dependency('gtk+-3.0')
-
 executable(
     'source-list',
     'src/main.vala',
@@ -14,9 +10,9 @@ executable(
     'src/SidebarExpandableRow.vala',
     'src/SidebarRow.vala',
     dependencies :[
-        glib,
-        gobject,
-        gtk
+        dependency('glib-2.0'),
+        dependency('gobject-2.0'),
+        dependency('gtk+-3.0')
     ],
     install : true
 )
